@@ -1,0 +1,62 @@
+Assignment 2 Notes
+Alex Filie
+
+Below are my notes on Assignment 2 after taking a look at it. I have thoughts on how to approach the code construction
+that I have outlined below. It consists of the Main code block and a few sub-functions to perform path check and backtrack tasks.
+I tried to capture my thoughts on the tasks of each function and the data flow. Scrolling down in this document, I put a couple examples
+of how I envision the progression of the logic.
+
+Function Outline:
+
+--int Main: Primary code
+
+--Function StartGoalRead: Reads the maze.txt file and generates a maze array with characters found in txt file. 
+			  Takes user input start and goal points, puts 'S' and 'G' and defined points after checking for clear acceptable point (Unobstructed point within maze boundaries).
+
+--Function PathFollow: Uses Maze array to look for next clear coordinate points starting at 'S' as "Current Position". Current Position will be a coordinate value of the current analysis point.
+  		       Next step is check for clear (blank) point around current position.
+		       After finding the next clear point, it becomes "current position" and gets assigned '*'. 
+		       The clear path check repeats until the "current position" (assigned as '*') is at a deadend (surrounded by '#') or 'G' is discovered around current position.
+
+--Function Backtrack: If current position is at a dead-end, function Backtrack is called to backtrack to previous coordinates with '*'and assign '-' to unusable coordinates.
+		      Function Backtrack takes in maze array and current position coordinates to analyze coordinates around current position 
+		      It will output a new current position that has '*' already assigned.
+		      This will allow Function PathFollow to re-evaluate the "current position" for a new direction to go.
+
+--Function FinalResult: Once the search reaches the goal, there will a path of '*' leading back from 'G' to 'S'. Un-usable path coordinates will have '-' or be blank.
+		 	This function will look at each coordinate with '*' and assign '+' to the visited points to build the complete path.
+			After this function is completed, it will provide a finalized array with '+' leading from 'G' to 'S'.
+
+
+int main
+--> Function StartGoalRead
+while currentposition does not reach goal:
+--> Function PathFollow
+    --> Function Backtrack
+When system reaches goal:
+--> Function FinalResult
+Output final solution in .txt file
+
+
+
+
+Example of PathFollow Encountering Dead-End:
+##############################################
+#              #******************S          #
+#  ##########  #############  #######  ####  #
+#           #      G          #        #     #
+#  #######  #############  ###################
+
+Example of Backtracking:
+##############################################
+#              #------------*****S           #
+#  ##########  #############* #######  ####  #
+#           #       G******** #        #     #
+#  #######  #############  ###################
+
+Example of Final Solution
+##############################################
+#              #------------+++++S           #
+#  ##########  #############+ #######  ####  #
+#           #       G++++++++ #        #     #
+#  #######  #############  ###################
