@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Rachith
-Date                   :=04/10/19
+Date                   :=06/10/19
 CodeLitePath           :=/home/rachith/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/scenario.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/scenario.cpp$(ObjectSuffix) 
 
 
 
@@ -91,14 +91,6 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/scenario.cpp$(ObjectSuffix): scenario.cpp $(IntermediateDirectory)/scenario.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/rachith/git/ENPM809Y/Assignment2/Assignment/cpp_code/scenario.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/scenario.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/scenario.cpp$(DependSuffix): scenario.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/scenario.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/scenario.cpp$(DependSuffix) -MM scenario.cpp
-
-$(IntermediateDirectory)/scenario.cpp$(PreprocessSuffix): scenario.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/scenario.cpp$(PreprocessSuffix) scenario.cpp
-
 $(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/rachith/git/ENPM809Y/Assignment2/Assignment/cpp_code/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
@@ -106,6 +98,14 @@ $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 
 $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
+
+$(IntermediateDirectory)/scenario.cpp$(ObjectSuffix): scenario.cpp $(IntermediateDirectory)/scenario.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/rachith/git/ENPM809Y/Assignment2/Assignment/cpp_code/scenario.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/scenario.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/scenario.cpp$(DependSuffix): scenario.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/scenario.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/scenario.cpp$(DependSuffix) -MM scenario.cpp
+
+$(IntermediateDirectory)/scenario.cpp$(PreprocessSuffix): scenario.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/scenario.cpp$(PreprocessSuffix) scenario.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

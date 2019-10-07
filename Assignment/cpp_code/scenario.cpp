@@ -22,14 +22,9 @@ bool Scenario::checkValidLocation(int x, int y)
 	return true;
 }
 
-void Scenario::markLocation(int x, int y)
+void Scenario::markLocation(int x, int y, int z)
 {
-	maze[x][y] = 2;
-}
-
-void Scenario::unmarkLocation(int x, int y)
-{
-	maze[x][y] = 3;
+	maze[x][y] = z;
 }
 
 void Scenario::printScenario()
@@ -44,23 +39,20 @@ void Scenario::printScenario()
 	}
 }
 
-void Scenario::printFinalScenario()
+void Scenario::printFinalScenario(bool goalReached)
 {
 	for(auto it = maze.begin(); it != maze.end(); ++it)
 	{
 		for (auto jt = it->second.begin() ; jt != it->second.end(); ++jt)
 		{
-			if ( maze[it->first][jt->first]==0 )
+			switch ( maze[it->first][jt->first] )
 			{
-				std::cout << "# "; 
-			}
-			else if ( maze[it->first][jt->first]==1 || maze[it->first][jt->first]==3 )
-			{
-				std::cout << "  ";
-			}
-			else
-			{
-				std::cout << "+ ";
+				case 0 : std::cout << "# "; break;
+				case 1 : std::cout << "  "; break;
+				case 2 : std::cout << "+ "; break;
+				case 3 : if ( not goalReached ) std::cout<<"+ "; else std::cout<<"  "; break;
+				case 5 : std::cout << "S "; break;
+				case 6 : std::cout << "G "; break;
 			}
 		}
 		std::cout << "\n";

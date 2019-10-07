@@ -11,10 +11,9 @@ public:
 	int getLength();
 	int getWidth();
 	bool checkValidLocation(int, int);
-	void markLocation(int, int);
-	void unmarkLocation(int, int);
+	void markLocation(int, int, int);
 	void printScenario();
-	void printFinalScenario();
+	void printFinalScenario(bool);
 };
 
 #endif

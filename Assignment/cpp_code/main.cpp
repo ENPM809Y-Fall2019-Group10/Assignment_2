@@ -3,7 +3,7 @@
 #include <iomanip>
 #include "include/scenario.h"
 
-/* This function is to read vertices from the input file */
+/* This function is to reads the maze from the input file */
 void readMap(std::string path, Scenario* maze)
 {
 	std::string line; 	// each line in file	
@@ -35,37 +35,48 @@ void readMap(std::string path, Scenario* maze)
 	else std::cout << "Unable to open the file" << "\n";
 }
 
-bool askStartGoalLocations(int& startX, int& startY, int& goalX, int& goalY, Scenario* maze)
+void askStartGoalLocations(int& startX, int& startY, int& goalX, int& goalY, Scenario* maze)
 {
+	// Read Start point
 	std::cout << "Enter the 'Start' location in the row,column format" << "\n";
+	bool startFlag = true;
+	do{
+		std::cin >> startX >> startY;
+		if ( not maze->checkValidLocation(startX, startY) )		// Check validity location of the input
+		{
+			std::cout << "Input location is invalid. Please re-enter valid input location." << "\n";
+			std::cout << "Note: Input location must be within " << "[0-" << maze->getLength()-1 << "," << "0-" << maze->getWidth()-1 << "], inclusive." << "\n";
+			std::cout << "Please input again\n";
+			startFlag = false;
+		}
+		else startFlag = true;
+	}while ( not startFlag );
 	
-	std::cin >> startX >> startY;
-	if ( not maze->checkValidLocation(startX, startY) )		// Check validity location of the input
-	{
-		std::cout << "Input location is invalid. Please re-enter valid input location." << "\n";
-		std::cout << "Note: Input location must be within " << "[0-" << maze->getLength()-1 << "," << "0-" << maze->getWidth()-1 << "], inclusive." << "\n";
-		return false;
-	}
-	
+	// Read Goal point
 	std::cout << "Enter the 'Goal' location in the row,column format" << "\n";
+	bool goalFlag = true;
+	do{
+		std::cin >> goalX >> goalY;
+		if ( not maze->checkValidLocation(goalX, goalY) )		// Check validity location of the input
+		{
+			std::cout << "Input location is invalid. Please re-enter valid input location." << "\n";
+			std::cout << "Note: Input location must be within " << "[0-" << maze->getLength()-1 << "," << "0-" << maze->getWidth()-1 << "], inclusive." << "\n";
+			std::cout << "Please input again\n";
+			goalFlag = false;
+		}
+		else goalFlag = true;
+	}while ( not goalFlag );
 	
-	std::cin >> goalX >> goalY;
-	if ( not maze->checkValidLocation(goalX, goalY) )		// Check validity location of the input
-	{
-		std::cout << "Input location is invalid. Please re-enter valid input location." << "\n";
-		std::cout << "Note: Input location must be within " << "[0-" << maze->getLength()-1 << "," << "0-" << maze->getWidth()-1 << "], inclusive." << "\n";
-		return false;
-	}
-	return true;
+	std::cout << "Cool!, Now Let's see how to navigate!" << "\n";
 }
 
 bool findPath(int x, int y, const int& gx, const int& gy, Scenario* maze)
 {
 	if ( x==gx && y==gy ) return true;		// Check if location is at Goal
 	
-	if ( not maze->checkValidLocation(x, y) ) return false;		// check validity of x, y
+	if ( not maze->checkValidLocation(x, y) ) return false;		// Check validity of x, y
 	
-	maze->markLocation(x, y);
+	maze->markLocation(x, y, 2);		// Mark traversed point
 	
 	maze->printScenario(); std::cout << "\n";
 	
@@ -77,34 +88,37 @@ bool findPath(int x, int y, const int& gx, const int& gy, Scenario* maze)
 	
 	if ( findPath(x, y-1, gx, gy, maze) ) return true;	 // West move
 	
-	maze->unmarkLocation(x, y);
+	maze->markLocation(x, y, 3);		// Mark ineligible point
 	
 	return false;
 }
 
 int main(int argc, char **argv)
 {
-	printf("hello world\n");
+	
 	std::string path = "/home/rachith/git/ENPM809Y/Assignment2/Assignment/maze.txt";
 	
-	Scenario maze; 				// Define a maze
+	Scenario maze; 				// Define a maze object
 	readMap(path, &maze);		// Creating a layout for maze in binary format; 1-free space, 0-obstacle
 		
 	maze.printScenario();		// Print the maze read from file for verification!!
-		
-	std::cout << maze.getLength() << "\n";		// Print length of the maze
-	std::cout << maze.getWidth() << "\n";		// Print width of the maze
 	
-	int startX{1}, startY{1}, goalX{1}, goalY{4};
-	if ( askStartGoalLocations(startX, startY, goalX, goalY, &maze) )
-	{
-		std::cout << "Cool!, Now Let's see how to navigate!" << "\n";
-		if ( findPath(startX, startY, goalX, goalY, &maze) ) std::cout << "Goal Reached!!" << "\n";
-		else std::cout << "Unfortunately could not reach the Goal! :( ... Better luck next time ;)" << "\n";
+	int startX{1}, startY{1}, goalX{1}, goalY{4};		// Define start and goal variables
+	
+	askStartGoalLocations(startX, startY, goalX, goalY, &maze);		// Collect start and goal locations from user
+	
+	bool goalReached = false;
+	
+	if ( findPath(startX, startY, goalX, goalY, &maze) ){
+		std::cout << "Goal Reached!!" << "\n";
+		goalReached = true;
 	}
-	else std::cout << "Exiting..." << "\n"; 
-		
-	maze.printFinalScenario();	// Print the maze after navigation!!
+	else std::cout << "Unfortunately 'Path Not Found' :( ... Better luck next time ;)" << "\n";
+	
+	maze.markLocation(startX, startY, 5);		// Mark Start Point
+	maze.markLocation(goalX, goalY, 6);		// Mark Goal Point
+
+	maze.printFinalScenario(goalReached);	// Print the maze after navigation!!
 	
 	return 0;
 }
