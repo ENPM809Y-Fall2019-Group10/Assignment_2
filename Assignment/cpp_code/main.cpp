@@ -78,7 +78,7 @@ bool findPath(int x, int y, const int& gx, const int& gy, Scenario* maze)
 	
 	maze->markLocation(x, y, 2);		// Mark traversed point
 	
-	maze->printScenario(); std::cout << "\n";
+//	maze->printScenario(); std::cout << "\n";
 	
 	if ( findPath(x-1, y, gx, gy, maze) ) return true;	 // North move
 	
