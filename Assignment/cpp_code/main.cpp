@@ -1,8 +1,23 @@
+/*! \mainpage Welcome!
+ * 
+*/
+
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include "include/scenario.h"
 
+/**  
+	*  @brief Function to read the input file!
+	*  @details
+	*  Reads file from the input location and stores in a binary/numeric map.
+	*  Several things to be taken note of here:
+	*  1. (#) - obstacle, written as 0 to the map
+	*  2. ( ) - free-space, written as 1 to the map
+	*  @param path  input file location. Please provide absolute path.
+	*  @param maze	map where numeric values corresponding to input file is stored.
+	*  @return	Void.
+	*/
 /* This function is to reads the maze from the input file */
 void readMap(std::string path, Scenario* maze)
 {
@@ -22,7 +37,7 @@ void readMap(std::string path, Scenario* maze)
 				{
 					maze->constructScenario(lineNumber, characterNum, 0);
 				}
-				else
+				else if ( c == '.' || c == ' ')
 				{
 					maze->constructScenario(lineNumber, characterNum, 1);
 				}
@@ -35,6 +50,18 @@ void readMap(std::string path, Scenario* maze)
 	else std::cout << "Unable to open the file" << "\n";
 }
 
+/**  
+	*  @brief Function to read inputs from user.
+	*  @details
+	*  User inputs start locations (row, col) == (startx, starty) and end locations (goalx, goaly).
+	*  Until user inputs a valid location, user is promted to re-enter the coordinates.
+	*  @param startX	start location's row.
+	*  @param startY	start location's column.
+	*  @param goalX	goal location's row.
+	*  @param goalY	goal location's column.
+	*  @param maze	Maze/Map of the environment.
+	*  @return	Void.
+	*/
 void askStartGoalLocations(int& startX, int& startY, int& goalX, int& goalY, Scenario* maze)
 {
 	// Read Start point
@@ -70,6 +97,19 @@ void askStartGoalLocations(int& startX, int& startY, int& goalX, int& goalY, Sce
 	std::cout << "Cool!, Now Let's see how to navigate!" << "\n";
 }
 
+/**  
+	*  @brief Recursive loop to find path to goal and backtrack!
+	*  @details
+	*   Follows a heuristic algorithm of navigating in the following order
+	*	from any location. Explores North, East, South and West.
+	* 
+	*  @param x	start/current location's row.
+	*  @param y	start/current location's column.
+	*  @param gx	goal location's row.
+	*  @param gy	goal location's column.
+	*  @param maze	Maze/Map of the environment.
+	*  @return	Final return is true when goal node is reached, else false.
+	*/
 bool findPath(int x, int y, const int& gx, const int& gy, Scenario* maze)
 {
 	if ( x==gx && y==gy ) return true;		// Check if location is at Goal
@@ -93,10 +133,21 @@ bool findPath(int x, int y, const int& gx, const int& gy, Scenario* maze)
 	return false;
 }
 
+/**  
+	*  @brief Main function that handles entire flow of the algorithm.
+	*  @details
+	*   The flow is as follows:
+	* 	1. read the input path location from user.
+	*   2. read the map present in the input location.
+	*   3. read start and goal location from user.
+	*   4. run algorithm to find a path.
+	*   5. print the result of the algorithm - maze.
+	*  @return	0;
+	*/
 int main(int argc, char **argv)
 {
 	
-	std::string path = "/home/rachith/git/ENPM809Y/Assignment2/Assignment/maze.txt";
+	std::string path = "/home/rachith/git/ENPM809Y/Assignment_2/Assignment/maze.txt";
 	
 	Scenario maze; 				// Define a maze object
 	readMap(path, &maze);		// Creating a layout for maze in binary format; 1-free space, 0-obstacle

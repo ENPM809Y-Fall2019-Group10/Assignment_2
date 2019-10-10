@@ -5,15 +5,15 @@
 ## Debug
 ProjectName            :=cpp_code
 ConfigurationName      :=Debug
-WorkspacePath          :=/home/rachith/git/ENPM809Y/Assignment2/Assignment
-ProjectPath            :=/home/rachith/git/ENPM809Y/Assignment2/Assignment/cpp_code
+WorkspacePath          :=/home/rachith/git/ENPM809Y/Assignment_2/Assignment
+ProjectPath            :=/home/rachith/git/ENPM809Y/Assignment_2/Assignment/cpp_code
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Rachith
-Date                   :=06/10/19
+Date                   :=09/10/19
 CodeLitePath           :=/home/rachith/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -28,7 +28,7 @@ LibraryPathSwitch      :=-L
 PreprocessorSwitch     :=-D
 SourceSwitch           :=-c 
 OutputFile             :=$(IntermediateDirectory)/$(ProjectName)
-Preprocessors          :=
+Preprocessors          :=$(PreprocessorSwitch)include 
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
 PreprocessOnlySwitch   :=-E
@@ -50,7 +50,7 @@ LibPath                := $(LibraryPathSwitch).
 AR       := /usr/bin/ar rcu
 CXX      := /usr/bin/g++
 CC       := /usr/bin/gcc
-CXXFLAGS := -Wmain -W -std=c++11 -Wall -g -O0 -Wall $(Preprocessors)
+CXXFLAGS := -Wmain -W -std=c++11 -Wall -Wmain -g -O0 -W -std=c++11 -Wall $(Preprocessors)
 CFLAGS   :=  -g -O0 -Wall $(Preprocessors)
 ASFLAGS  := 
 AS       := /usr/bin/as
@@ -92,7 +92,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/rachith/git/ENPM809Y/Assignment2/Assignment/cpp_code/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/rachith/git/ENPM809Y/Assignment_2/Assignment/cpp_code/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM main.cpp
 
@@ -100,7 +100,7 @@ $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
 
 $(IntermediateDirectory)/scenario.cpp$(ObjectSuffix): scenario.cpp $(IntermediateDirectory)/scenario.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/rachith/git/ENPM809Y/Assignment2/Assignment/cpp_code/scenario.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/scenario.cpp$(ObjectSuffix) $(IncludePath)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/rachith/git/ENPM809Y/Assignment_2/Assignment/cpp_code/scenario.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/scenario.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/scenario.cpp$(DependSuffix): scenario.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/scenario.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/scenario.cpp$(DependSuffix) -MM scenario.cpp
 

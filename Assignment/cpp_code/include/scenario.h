@@ -5,7 +5,7 @@
 
 class Scenario{
 private:
-	std::map< int, std::map<int, int> > maze;
+	std::map<int, std::map<int, int>> maze;
 public:
 	void constructScenario(int, int, int);
 	int getLength();
@@ -16,4 +16,9 @@ public:
 	void printFinalScenario(bool);
 };
 
+/*! \class Scenario scenario.h "include/scenario.h"
+ *  \brief Defines the structure of the maze along with functions supporting it.
+ *	@details This is the base of the algorithm. Several functions to perform certain tasks on the map is defined here.
+ *  \headerfile scenario.h
+ */
 #endif
