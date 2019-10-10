@@ -9,7 +9,7 @@
 * Code is designed to accept both ( ) i.e. freespace and (.) i.e. dot as input from map. However, obstacle has to be (#).
 
 ## Execution Note!
-### Input file is by default taken from this directory i.e. coded with relative path.
+### Input file is by default taken from `Assignment` directory i.e. it has been coded with relative path.
 ### If the existing code does not work (i.e. input file error!), please change the following and run the code.
 * line #155 in `main.cpp` where `std::string path` has been defined. Change the value to path in your system before executing the code.
 
