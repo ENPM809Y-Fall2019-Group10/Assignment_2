@@ -11,3 +11,9 @@
 ## Execution Note!
 ### Please change the following and run the code.
 * line #150 in `main.cpp` where `std::string path` has been defined. Change the value to path in your system before executing the code.
+
+## Sample execution:
+Few observations:
+* \# corresponds to obstacle
+* \+ corresponds to partial (when goal is not reached), else path to goal (G) from start (S) node.
+![Sample output](https://github.com/ENPM809Y-Fall2019-Group10/Assignment_2/blob/rachith/sample_output.png)
