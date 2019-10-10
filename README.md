@@ -6,7 +6,7 @@
 * Doxygen documentation can be viewed by cloning the repo and navigating to `documentation/docs/html` and open `index.html` in your local browser.
 * Every input being asked contains two values: First being row number, second being column number.
 * The grid is designed such that (0, 0) is top-left corner of the map. row and column indices increase downwards (row) and towards right (column).
-* Code is designed to accept both ( ) ->freespace and (.) as free-space input from map. However, obstacle has to be (#).
+* Code is designed to accept both ( ) i.e. freespace and (.) i.e. dot as input from map. However, obstacle has to be (#).
 
 ## Execution Note!
 ### Please change the following and run the code.
