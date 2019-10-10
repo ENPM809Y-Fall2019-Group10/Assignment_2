@@ -3,7 +3,111 @@
 #include <vector>
 using namespace std;
 
+// Symbols:
+// '.' = open
+// '#' = blocked
+// 'S' = start
+// 'G' = goal
+// '+' = path
+// 'x' = bad path
 
+/**
+* @brief This function advances the path North.
+* @param x Current x position
+* @param y Current y position
+* @return Vector of updated coordinates in North direction
+*/
+vector<int> goNorth(int,int);
+
+/**
+* @brief This function advances the path East.
+* @param x Current x position
+* @param y Current y position
+* @return Vector of updated coordinates in East direction
+*/
+vector<int> goEast(int,int);
+
+/**
+* @brief This function advances the path South.
+* @param x Current x position
+* @param y Current y position
+* @return Vector of updated coordinates in South direction
+*/
+vector<int> goSouth(int,int);
+
+/**
+* @brief This function advances the path West.
+* @param x Current x position
+* @param y Current y position
+* @return Vector of updated coordinates in West direction
+*/
+vector<int> goWest(int,int);
+
+/**
+* @brief This function checks if the path has an obstacle.
+* @param x Current x position
+* @param y Current y position
+* @param maze The maze array
+* @return True if the current cell is an obstacle.
+*/
+bool obstacleCheck(int,int,vector<vector<char>>);
+
+/**
+* @brief This function checks if the path is outside the maze.
+* @param x Current x position
+* @param y Current y position
+* @return True if the current cell is outside the maze.
+*/
+bool outsideMaze(int,int);
+
+/**
+* @brief This function checks if the position is the goal.
+* @param x Current x position
+* @param y Current y position
+* @param goalX goal x position
+* @param goalY goal y position
+* @return True if the current cell is the goal
+*/
+bool goalCheck(int,int,int,int);
+
+/**
+* @brief This function recursively finds a valid path from the start to the goal.
+* 
+* This function first checks that the position attempted is not an obstacle or outside the maze.
+* Then the function checks if it's the goal position, and if it isn't, attemps to move again.
+* Next, it runs through the movement function, in order of North, East, South, West.
+* If any of these function return a possible move, it saves the new move in a vector array, 
+* and then returns True and goes into the recursion.
+* If no move can be made, the function notes the wrong move with an 'X' and backtracks.
+* Once the final goal is reached, the function returns a final True and completes.
+* 
+* @param x Current x position
+* @param y Current y position
+* @return True if a path from start to goal is found
+*/
+bool findPath(int,int);
+
+/**
+* @brief The function displays the maze itself, with boundaries and numbering.
+* @return None
+*/
+void displayMaze();
+
+/**
+* @brief This function checks for and removes any X's from the maze display.
+* This function runs a loop to check if there are any 'x's in the maze.
+* If one is found, the function then runs a second loop to rewrite every 'x' with '.'
+* Once this is done, the clean maze is then displayed using displayMaze().
+* @return None
+*/
+void mazePathDisplay();
+
+int goalX{};    ///< Initialize variable to store x position of goal
+int goalY{};	///< Initialize variable to store y position of goal
+
+vector<vector<int>> pathTaken; ///< Initialize variable to store solution path
+int sizePathTaken;  ///< Initialize variable to store Size of pathTaken
+vector<string> movements; ///< Initialize variable to store string vector of actions
 
 int main()
 {
