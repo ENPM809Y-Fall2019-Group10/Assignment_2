@@ -3,6 +3,7 @@
 ## NOTE: This has been tested on codelite platform only! Also, c++11 has been used for development.
 
 ### Few sub-notes:
+* `Assignment` folder is the workspace folder. It contains `.workspace` file which can be loaded into your codelite environment. 
 * Doxygen documentation can be viewed by cloning the repo and navigating to `documentation/docs/html` and open `index.html` in your local browser.
 * Every input being asked contains two values: First being row number, second being column number.
 * The grid is designed such that (0, 0) is top-left corner of the map. row and column indices increase downwards (row) and towards right (column).
