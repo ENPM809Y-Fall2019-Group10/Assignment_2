@@ -8,8 +8,16 @@
 #include "include/scenario.h"
 #include <limits>
 
+// Function Prototypes
+/**  @brief Function to read the maze from the input file. */
+void readMap(std::string, Scenario* );
+/**  @brief Function to read inputs from user. */
+void askStartGoalLocations(int&, int&, int&, int&, Scenario*);
+/**  @brief Recursive loop to find path to goal and backtrack! */
+bool findPath(int, int, const int&, const int&, Scenario*);
+
+
 /**  
-	*  @brief Function to read the input file!
 	*  @details
 	*  Reads file from the input location and stores in a binary/numeric map.
 	*  Several things to be taken note of here:
@@ -19,7 +27,6 @@
 	*  @param maze	map where numeric values corresponding to input file is stored.
 	*  @return	Void.
 	*/
-/* This function is to reads the maze from the input file */
 void readMap(std::string path, Scenario* maze)
 {
 	std::string line; 	// each line in file	
@@ -52,7 +59,6 @@ void readMap(std::string path, Scenario* maze)
 }
 
 /**  
-	*  @brief Function to read inputs from user.
 	*  @details
 	*  User inputs start locations (row, col) == (startx, starty) and end locations (goalx, goaly).
 	*  Until user inputs a valid location, user is promted to re-enter the coordinates.
@@ -102,7 +108,6 @@ void askStartGoalLocations(int& startX, int& startY, int& goalX, int& goalY, Sce
 }
 
 /**  
-	*  @brief Recursive loop to find path to goal and backtrack!
 	*  @details
 	*   Follows a heuristic algorithm of navigating in the following order
 	*	from any location. Explores North, East, South and West.
@@ -148,7 +153,7 @@ bool findPath(int x, int y, const int& gx, const int& gy, Scenario* maze)
 	*   5. print the result of the algorithm - maze.
 	*  @return	0;
 	*/
-int main(int argc, char **argv)
+int main()
 {
 	
 //	std::string path = "/home/rachith/git/ENPM809Y/Assignment_2/Assignment/maze.txt";
