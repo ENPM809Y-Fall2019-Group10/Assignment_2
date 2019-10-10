@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iomanip>
 #include "include/scenario.h"
+#include <limits>
 
 /**  
 	*  @brief Function to read the input file!
@@ -68,15 +69,17 @@ void askStartGoalLocations(int& startX, int& startY, int& goalX, int& goalY, Sce
 	std::cout << "Enter the 'Start' location in the row,column format" << "\n";
 	bool startFlag = true;
 	do{
-		std::cin >> startX >> startY;
-		if ( not maze->checkValidLocation(startX, startY) )		// Check validity location of the input
+		std::cin >> startX >> startY;		
+		if ( std::cin.fail() || not maze->checkValidLocation(startX, startY) )		// Check validity location of the input
 		{
-			std::cout << "Input location is invalid. Please re-enter valid input location." << "\n";
-			std::cout << "Note: Input location must be within " << "[0-" << maze->getLength()-1 << "," << "0-" << maze->getWidth()-1 << "], inclusive." << "\n";
-			std::cout << "Please input again\n";
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cerr << "Input location is invalid. Please re-enter valid input location." << "\n";
+			std::cerr << "Note: Input location must be within " << "[0-" << maze->getLength()-1 << "," << "0-" << maze->getWidth()-1 << "], inclusive." << "\n";
 			startFlag = false;
 		}
 		else startFlag = true;
+		
 	}while ( not startFlag );
 	
 	// Read Goal point
@@ -84,11 +87,12 @@ void askStartGoalLocations(int& startX, int& startY, int& goalX, int& goalY, Sce
 	bool goalFlag = true;
 	do{
 		std::cin >> goalX >> goalY;
-		if ( not maze->checkValidLocation(goalX, goalY) )		// Check validity location of the input
+		if ( std::cin.fail() || not maze->checkValidLocation(goalX, goalY) )		// Check validity location of the input
 		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Input location is invalid. Please re-enter valid input location." << "\n";
 			std::cout << "Note: Input location must be within " << "[0-" << maze->getLength()-1 << "," << "0-" << maze->getWidth()-1 << "], inclusive." << "\n";
-			std::cout << "Please input again\n";
 			goalFlag = false;
 		}
 		else goalFlag = true;
@@ -147,7 +151,8 @@ bool findPath(int x, int y, const int& gx, const int& gy, Scenario* maze)
 int main(int argc, char **argv)
 {
 	
-	std::string path = "/home/rachith/git/ENPM809Y/Assignment_2/Assignment/maze.txt";
+//	std::string path = "/home/rachith/git/ENPM809Y/Assignment_2/Assignment/maze.txt";
+	std::string path = "../../maze.txt";
 	
 	Scenario maze; 				// Define a maze object
 	readMap(path, &maze);		// Creating a layout for maze in binary format; 1-free space, 0-obstacle
